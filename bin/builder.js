@@ -43,6 +43,9 @@ const identifiers = require(path.join(rtPath, 'identifiers.js'))
 
 function processComponent(variables, component) {
   const identifier = identifiers[component]
+  if (!identifier) {
+    throw('Unknown component ' + component + '. Must be one of: ' + Object.keys(identifiers).join(', '))
+  }
   const componentPath = path.join(rtPath, getPath(component))
   return postcssWithModules(identifier, componentPath, variables, rtPath, config.fixed)
 }
